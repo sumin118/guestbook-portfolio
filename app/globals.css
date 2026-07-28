@@ -5,5 +5,35 @@
 }
 
 body {
-  background: #f1f0f7;
+  background: #1990ff;
+}
+
+@keyframes fly-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(60px, 10px);
+  }
+}
+
+@keyframes fly-b {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-70px, 14px);
+  }
+}
+
+@keyframes fly-c {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(40px, -12px);
+  }
 }
