@@ -3,14 +3,16 @@
 import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
 
+type FieldErrors = {
+  name?: string;
+  message?: string;
+  photo?: string;
+};
+
 export type GuestbookFormState = {
   ok?: boolean;
   id?: string;
-  errors?: {
-    name?: string;
-    message?: string;
-    photo?: string;
-  };
+  errors?: FieldErrors;
 };
 
 const MAX_PHOTO_SIZE = 5 * 1024 * 1024;
@@ -33,9 +35,9 @@ function validate(
   name: string,
   message: string,
   photo: FormDataEntryValue | null
-): { errors: GuestbookFormState["errors"]; hasPhoto: boolean } {
+): { errors: FieldErrors; hasPhoto: boolean } {
   const hasPhoto = photo instanceof File && photo.size > 0;
-  const errors: GuestbookFormState["errors"] = {};
+  const errors: FieldErrors = {};
 
   if (!name) errors.name = "이름을 입력해주세요";
   if (!message) errors.message = "메시지를 입력해주세요";
