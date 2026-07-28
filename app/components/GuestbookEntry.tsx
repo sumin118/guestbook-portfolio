@@ -19,11 +19,13 @@ type Entry = {
 };
 
 function formatDate(iso: string) {
-  const date = new Date(iso);
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+  // Fixed KST (UTC+9) offset via UTC getters so server and client render
+  // the same string regardless of each runtime's local timezone.
+  const kst = new Date(new Date(iso).getTime() + 9 * 60 * 60 * 1000);
+  const month = kst.getUTCMonth() + 1;
+  const day = kst.getUTCDate();
+  const hours = String(kst.getUTCHours()).padStart(2, "0");
+  const minutes = String(kst.getUTCMinutes()).padStart(2, "0");
   return `${month}월 ${day}일 ${hours}:${minutes}`;
 }
 
