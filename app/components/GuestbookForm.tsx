@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { addEntry, type GuestbookFormState } from "@/app/actions";
+import { addMyEntry } from "@/lib/ownership";
 
 const initialState: GuestbookFormState = {};
 
@@ -14,6 +15,7 @@ export function GuestbookForm() {
     if (state.ok) {
       formRef.current?.reset();
       setPreview(null);
+      if (state.id) addMyEntry(state.id);
     }
   }, [state]);
 
